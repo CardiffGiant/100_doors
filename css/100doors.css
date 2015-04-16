@@ -1,28 +1,50 @@
-body {
-   background-color: #7f8c8d;
-   overflow: auto;
+@font-face {
+   font-family: mainFont;
+   src: url(cabin-medium.otf);
 }
-ul {
-   list-style-type: none;
+
+body {
+   background-color: #bdc3c7;
+   overflow: auto;
+   font-family: mainFont, arial, sans-serif;
    margin: 0;
    padding: 0;
 }
-#doors {
-   width: 780px;
-   height: 350px;
+h1 {
+   color: #2c3e50;
+   text-align: center;
+   margin: 0;
+   padding: 0;
+   display: block;
+   height: 60px;
+   line-height: 60px;
+   background-color: #ecf0f1;
+}
+ul {
+   width: 830px;
+   list-style-type: none;
    margin: 20px auto;
+   padding: 0;
+}
+#doors {
+   width: 900px;
+   height: 390px;
+   margin: 30px auto;
+   background-color: #7f8c8d;
+   overflow: auto;
+   border-radius: 5px;
 }
 span {
    display: block;
-   width: 150px;
-   color: white;
+   width: 115px;
+   color: #2c3e50;
    font-size: 1.4em;
    margin: 5px auto;
 }
 .closed {
    overflow: hidden;
 }
-#open {
+#startButton {
    width: 100px;
    height: 30px;
    display: block;
@@ -38,7 +60,6 @@ span {
    padding: 0;
    display: block;
    line-height: 50px;
-   font-family: arial;
    background-color: #3498db;
    color: #ecf0f1;
    overflow: hidden;
@@ -51,7 +72,8 @@ li {
    text-align: center;
    display: inline-block;
    background-color: #f1c40f;
-   border-top: 2px solid #ecf0f1;
-   border-right: 2px solid #ecf0f1;
-   border-left: 2px solid #ecf0f1;
+   border-top: 2px solid #34495e;
+   border-right: 2px solid #34495e;
+   border-left: 2px solid #34495e;
+   border-bottom: 1px solid #34495e;
 }

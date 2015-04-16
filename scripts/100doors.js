@@ -1,63 +1,93 @@
+var demo = {
+   
+   startButton: document.getElementById("startButton"),
+   frame: document.getElementById("doors"),
+   doorArray: [],
+   rounds: [],
+   k: 0,
+   currentRound: 0,
 
-function setDoors() {
-   var frame = document.getElementById("doors");
-   var button = document.getElementById("open");
-   var list = document.createElement("ul");
-   var i;
-   for (i=1; i<101; i+=1) {
-      var doorFrame = document.createElement("li");
-      var door = document.createElement("div");
-      door.setAttribute("class", "door");
-      doorFrame.setAttribute("class", "closed");
-      doorFrame.setAttribute("id", i);
-      doorFrame.appendChild(door);
-      door.innerText = i;
-      list.appendChild(doorFrame);
-   }
-   frame.appendChild(list);
-   button.addEventListener("click", openDoors);
-}
-var doorArray = [];
-var rounds = [];
-function openDoors() {
-   var i, j;
-   for (i=1; i<101; i+=1) {
-      for(j=1; j<101; j+=1) {
-         if(j%i===0) {
-            doorArray.push(j);
-         }
+   // build the unordered list of divs
+   // visual representation of 100 doors
+   buildDoors: function() {
+      var button, list, i, doorframe, door;
+      
+      list = document.createElement("ul");
+
+      for (i=1; i<101; i+=1) {
          
+         doorFrame = document.createElement("li");
+         doorFrame.setAttribute("class", "closed");
+         doorFrame.setAttribute("id", i);
+         
+         door = document.createElement("div");
+         door.setAttribute("class", "door");
+         door.innerText = i;
+         
+         doorFrame.appendChild(door);
+         list.appendChild(doorFrame);
       }
-      rounds.push(doorArray.length);
-      console.log(i);
-   }
-   //console.log(doorArray);
-   console.log(rounds);
-   showOpening();
-}
-var k=0;
-var round = 0;
-function showOpening() {
+      
+      demo.frame.appendChild(list);
+      
+   },
    
+   buildAndSetEvents: function() {
+      demo.buildDoors();
+      demo.startButton.addEventListener("click", demo.simulateAndDisplay);
+   },
    
-   setInterval(function() {if(k<doorArray.length) {openTheDoor(k);k+=1;} else {setTimeout(function() {document.getElementById("passes").innerText = 100})}}, 50);
+   resetDemoAndRun: function() {
+      demo.k = 0;
+      demo.currentRound = 0;
+      demo.frame.innerHTML = '';
+      demo.buildDoors();
+      setInterval(demo.showSimulation, 80);
+   },
    
-}
-function openTheDoor(doorId) {
-   var out = document.getElementById("passes"), div, target;
-   out.innerText = round+1;
-   target = document.getElementById(doorArray[doorId]);
-   div = target.firstElementChild;
-   if(target.className === "closed") {
-      target.className = "opened";
-      $(div).animate({width: "27px" });
-   } else {
-      target.className = "closed";
-      $(div).animate({width: "0px" });
-   }
-   if(doorId === rounds[round]) {
-      round++;
+   simulateAndDisplay: function() {
+      if(demo.frame.firstElementChild.firstElementChild.className === "opened") {
+         demo.resetDemoAndRun();
+      } else {
+         var i, j;
+         for (i=1; i<101; i+=1) {
+            for(j=1; j<101; j+=1) {
+               if(j%i===0) {
+                  demo.doorArray.push(j);
+               }
+            }
+            demo.rounds.push(demo.doorArray.length);
+         }
+         setInterval(demo.showSimulation, 80);
+      }
+   },
+   
+   showSimulation: function() {
+      if(demo.k<demo.doorArray.length) {
+         (demo.openTheDoor(demo.k));demo.k+=1;
+      } else {
+         setTimeout(function() {document.getElementById("passes").innerText = 100});
+      }
+   },
+   
+   openTheDoor: function(doorIndex) {
+      var door, targetInnerDiv, output;
+      output = document.getElementById("passes");
+      output.innerText = demo.currentRound+1;
+      door = document.getElementById(demo.doorArray[doorIndex]);
+      targetInnerDiv = door.firstElementChild;
+      //console.log('got here');
+      if(door.className === "closed") {
+         door.className = "opened";
+         $(targetInnerDiv).animate({width: "27px" });
+      } else {
+         door.className = "closed";
+         $(targetInnerDiv).animate({width: "0px" });
+      }
+      if(doorIndex === demo.rounds[demo.currentRound]) {
+         demo.currentRound++;
+      }
    }
 }
 
-window.onload = setDoors;
+window.onload = demo.buildAndSetEvents;
