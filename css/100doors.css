@@ -8,8 +8,8 @@ ul {
    padding: 0;
 }
 #doors {
-   width: 875px;
-   height: 300px;
+   width: 780px;
+   height: 350px;
    margin: 20px auto;
 }
 span {
@@ -20,11 +20,7 @@ span {
    margin: 5px auto;
 }
 .closed {
-   width: 25px;
-   height: 50px;
-   background-color: #d35400;
-   display: inline-block;
-   margin: 5px;
+   overflow: hidden;
 }
 #open {
    width: 100px;
@@ -33,9 +29,29 @@ span {
    margin: 20px auto;
 }
 .opened {
-   width: 25px;
-   height: 50px;
-   background-color: white;
-   display: inline-block;
+   overflow: hidden;
+}
+.door {
+   width: 0px;
+   height: 51px;
+   margin: 0;
+   padding: 0;
+   display: block;
+   line-height: 50px;
+   font-family: arial;
+   background-color: #3498db;
+   color: #ecf0f1;
+   overflow: hidden;
+}
+li {
+   width: 27px;
+   height: 51px;
    margin: 5px;
+   padding: 0;
+   text-align: center;
+   display: inline-block;
+   background-color: #f1c40f;
+   border-top: 2px solid #ecf0f1;
+   border-right: 2px solid #ecf0f1;
+   border-left: 2px solid #ecf0f1;
 }

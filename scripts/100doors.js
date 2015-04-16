@@ -5,11 +5,14 @@ function setDoors() {
    var list = document.createElement("ul");
    var i;
    for (i=1; i<101; i+=1) {
-      var door = document.createElement("li");
-      door.setAttribute("class", "closed");
-      door.setAttribute("id", i);
+      var doorFrame = document.createElement("li");
+      var door = document.createElement("div");
+      door.setAttribute("class", "door");
+      doorFrame.setAttribute("class", "closed");
+      doorFrame.setAttribute("id", i);
+      doorFrame.appendChild(door);
       door.innerText = i;
-      list.appendChild(door);
+      list.appendChild(doorFrame);
    }
    frame.appendChild(list);
    button.addEventListener("click", openDoors);
@@ -20,8 +23,6 @@ function openDoors() {
    var i, j;
    for (i=1; i<101; i+=1) {
       for(j=1; j<101; j+=1) {
-         //var target = document.getElementById(j);
-         //var numId = parseInt(target.id);
          if(j%i===0) {
             doorArray.push(j);
          }
@@ -43,13 +44,16 @@ function showOpening() {
    
 }
 function openTheDoor(doorId) {
-   var out = document.getElementById("passes");
+   var out = document.getElementById("passes"), div, target;
    out.innerText = round+1;
-   var target = document.getElementById(doorArray[doorId]);
+   target = document.getElementById(doorArray[doorId]);
+   div = target.firstElementChild;
    if(target.className === "closed") {
       target.className = "opened";
+      $(div).animate({width: "27px" });
    } else {
       target.className = "closed";
+      $(div).animate({width: "0px" });
    }
    if(doorId === rounds[round]) {
       round++;
