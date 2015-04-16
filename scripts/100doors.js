@@ -39,7 +39,8 @@ var round = 0;
 function showOpening() {
    
    
-   setInterval(function() {if(k<doorArray.length) {openTheDoor(k);k+=1;}}, 70);
+   setInterval(function() {if(k<doorArray.length) {openTheDoor(k);k+=1;} else {setTimeout(function() {document.getElementById("passes").innerText = 100})}}, 50);
+   
 }
 function openTheDoor(doorId) {
    var out = document.getElementById("passes");
