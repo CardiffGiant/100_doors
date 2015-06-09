@@ -3,6 +3,10 @@
    src: url(cabin-medium.otf);
 }
 
+/*  Need to tighten this up
+    The colors are hard to look at and the overall presentation
+    could be cleaned up a bit.
+*/
 body {
    background-color: #bdc3c7;
    overflow: auto;
