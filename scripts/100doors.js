@@ -7,7 +7,7 @@ var demo = {
    k: 0,
    currentRound: 0,
 
-   // build the unordered list of divs
+   // build the HTML unordered list of divs
    // visual representation of 100 doors
    buildDoors: function() {
       var button, list, i, doorframe, door;
@@ -32,11 +32,14 @@ var demo = {
       
    },
    
+   // Sets click event for UI button
    buildAndSetEvents: function() {
       demo.buildDoors();
       demo.startButton.addEventListener("click", demo.simulateAndDisplay);
    },
    
+   // Resets the display and all necessary variables
+   // Used if user clicks button multiple times
    resetDemoAndRun: function() {
       demo.k = 0;
       demo.currentRound = 0;
@@ -45,6 +48,9 @@ var demo = {
       setInterval(demo.showSimulation, 80);
    },
    
+   // Runs the simulation
+   // Collects the entire sequence first and then
+   // begins the animations.
    simulateAndDisplay: function() {
       if(demo.frame.firstElementChild.firstElementChild.className === "opened") {
          demo.resetDemoAndRun();
@@ -62,6 +68,8 @@ var demo = {
       }
    },
    
+   // Animates the "doors" if not at the end of the collection
+   // Ouputs the pass count
    showSimulation: function() {
       if(demo.k<demo.doorArray.length) {
          (demo.openTheDoor(demo.k));demo.k+=1;
@@ -70,6 +78,8 @@ var demo = {
       }
    },
    
+   // Animation of door opening or closing
+   // Uses CSS classes to set attributes
    openTheDoor: function(doorIndex) {
       var door, targetInnerDiv, output;
       output = document.getElementById("passes");
@@ -90,4 +100,5 @@ var demo = {
    }
 }
 
+// Builds the display on window load
 window.onload = demo.buildAndSetEvents;
